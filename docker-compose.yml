@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  mysql:
+    container_name: ${MYSQL_CONTAINER_NAME}
+    build:
+      context: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data/db:/var/lib/mysql
+    networks:
+      - api-network
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+    ports:
+      - "3306:3306"
+
+  node:
+    container_name: ${NODE_CONTAINER_NAME}
+    hostname: 'api'
+    env_file:
+      - .env
+    restart: unless-stopped
+    build:
+      context: ./api
+    command: ${CMD}
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./api:/var/www/html/api
+      - /var/www/html/api/node_modules
+    networks:
+      - api-network
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_HOST: ${MYSQL_HOST}
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:${PORT} || exit 1z
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  data:

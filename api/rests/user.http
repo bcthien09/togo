@@ -1,0 +1,50 @@
+
+@version = v1
+@hostname = http://localhost:8080
+@contentType = application/json
+
+@username = a4@gmail.com
+@password = Thien@123
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm1heFRvZG8iOjMsImlhdCI6MTY4MTQ4OTM3OSwiZXhwIjoxNjgxNDkyOTc5fQ.HT-OgnkMhTWmRL3u4PLv3uKZp3ct3--I5lMci8A-bVY
+
+### Get user task
+GET  {{hostname}}/api/{{version}}/user/task/1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+### Get all user task
+GET  {{hostname}}/api/{{version}}/user/tasks
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "userId": 8
+}
+
+### Add Task
+POST {{hostname}}/api/{{version}}/user/task
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "description": "Task -1"
+}
+
+### User login
+POST {{hostname}}/api/{{version}}/login
+Content-Type: {{contentType}}
+
+{
+    "username": "{{username}}",
+    "password": "{{password}}"
+}
+
+### User register
+POST {{hostname}}/api/{{version}}/register
+Content-Type: {{contentType}}
+
+{
+    "username": "{{username}}",
+    "password": "{{password}}",
+    "max_todo": 3
+}

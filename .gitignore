@@ -1,0 +1,9 @@
+# Ignore folders
+.idea
+.vscode
+data
+
+# node.js
+api/node_modules/
+api/npm-debug.log
+api/yarn-error.log
