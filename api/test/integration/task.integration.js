@@ -9,9 +9,6 @@ const axios = require('axios');
 const jwt_decode = require('jwt-decode');
 
 const chaiHttp = require('chai-http');
-const app = require('../../src/app');
-const helper = require('../../src/helpers');
-const { request } = require('../../src/app');
 
 chai.should();
 const expect = require('chai').expect;
@@ -25,17 +22,11 @@ async function createUser() {
         max_todo: 3
     };
 
-    let result = {};
-
-    await chai
-        .request(app)
-        .post('/api/v1/register')
-        .set('Accept','application/json')
-        .send(user)
-        .end((err, res) => {
-            result = res.body.message;
-            done();
-        });
+    const result = await axios.post('http://localhost:8080/api/v1/register', user, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 
     return result;
 }
@@ -46,23 +37,11 @@ async function userLogin() {
         password: '123456',
     };
 
-	// const result = await axios.post('http://localhost:8081/api/v1/login', user, {
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     }
-    // });
-
-    let result = {};
-
-    await chai
-        .request(app)
-        .post('/api/v1/login')
-        .set('Accept','application/json')
-        .send(user)
-        .end((err, res) => {
-            result = res.body.message;
-            done();
-        });
+	const result = await axios.post('http://localhost:8080/api/v1/login', user, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 
     return result;
 }
@@ -76,7 +55,7 @@ describe('POST /api/v1/user/task', () => {
 
     it('respond no token in request', async () => {
         await userLogin();
-        const response = await axios.post('http://localhost:8081/api/v1/user/task', {}, {
+        const response = await axios.post('http://localhost:8080/api/v1/user/task', {}, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -87,7 +66,7 @@ describe('POST /api/v1/user/task', () => {
 
     it('respond description is required', async () => {
         const user = await userLogin();
-        const response = await axios.post('http://localhost:8081/api/v1/user/task', {}, {
+        const response = await axios.post('http://localhost:8080/api/v1/user/task', {}, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.data.message.accessToken}`
@@ -99,7 +78,7 @@ describe('POST /api/v1/user/task', () => {
 
     it('respond user create tasks successfully', async () => {
         const result = await userLogin();
-        const response = await axios.post('http://localhost:8081/api/v1/user/task', {description: 'Task 1'}, {
+        const response = await axios.post('http://localhost:8080/api/v1/user/task', {description: 'Task 1'}, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${result.data.message.accessToken}`
@@ -114,7 +93,7 @@ describe('POST /api/v1/user/task', () => {
         const {maxTodo} = jwt_decode(result.data.message.accessToken);
         
         for(let i = 0; i < 3; i++) {
-            const response = await axios.post('http://localhost:8081/api/v1/user/task', {description: `Task ${i + 1}`}, {
+            const response = await axios.post('http://localhost:8080/api/v1/user/task', {description: `Task ${i + 1}`}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${result.data.message.accessToken}`

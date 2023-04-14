@@ -5,7 +5,7 @@
 
 @username = a4@gmail.com
 @password = Thien@123
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm1heFRvZG8iOjMsImlhdCI6MTY4MTQ3MDQ1NCwiZXhwIjoxNjgxNDc0MDU0fQ.-9p3ukxaOyLDtIlCW1FaUId2ayF-Q8Rb5KNOIjP2uq0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm1heFRvZG8iOjMsImlhdCI6MTY4MTQ4OTM3OSwiZXhwIjoxNjgxNDkyOTc5fQ.HT-OgnkMhTWmRL3u4PLv3uKZp3ct3--I5lMci8A-bVY
 
 ### Get user task
 GET  {{hostname}}/api/{{version}}/user/task/1

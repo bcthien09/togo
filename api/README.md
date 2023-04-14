@@ -5,7 +5,7 @@
 `For Windows https://docs.docker.com/desktop/install/windows-install/`
 - Open file .env and change it if you don't want to use default
 - Start docker by Docker Desktop
-- Using command `docker ps` to show docker container name or ID
+- Run `chmod +x run.sh`
 - Start project by command `./run.sh local`. Wait 1-2 minutes for build project
 - To stop docker, using `ctrl + c` and `./run stop`
 
@@ -39,6 +39,7 @@ If don't run APIs with `user.http`, we can run with cURL
 **Run Integration Test**
 
 `npm test -- test/integration/task.integration.js`
+Not finish yet. it needs to improve more. 
 
 **What do you love about your solution**
 

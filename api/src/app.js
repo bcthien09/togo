@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const db = require('../src/db');
+// const db = require('../src/db');
 const appRoutes = require('./routes');
 const app = express();
 
@@ -12,13 +12,6 @@ app.use(
     extended: true,
   })
 );
-
-try {
-  db.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
 
 app.get('/', (req,res) => {
   return res.send({data: 'Welcome APIs'});
