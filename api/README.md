@@ -39,7 +39,6 @@ If don't run APIs with `user.http`, we can run with cURL
 **Run Integration Test**
 
 `npm test -- test/integration/task.integration.js`
-Not finish yet. it needs to improve more. 
 
 **What do you love about your solution**
 
