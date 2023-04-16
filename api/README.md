@@ -50,3 +50,8 @@ Not finish yet. it needs to improve more.
 
 - We can use Redis to limit daily tasks for a user and improve the performance and lessen the requests sent to database leading to considerable cost reduction
 - Apply for Typescript to validate params, methods,..
+
+**Note**
+
+- Token will be expired after 1h, please find and copy token in this line when run first `Copy this token for unit other test:`
+- Update the token into `const accessToken = token_here`

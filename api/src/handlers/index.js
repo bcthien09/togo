@@ -9,6 +9,12 @@ const accessSecretKey = 'access-key-key';
 const register = async (req, res) => {
     try {
         const username = req.body.username;
+        if (!username) {
+            return res.json({
+                success: false,
+                message: `username is required`
+            });
+        }
         const hasUser = await User.findOne({where: {username: username}, raw: true});
         if (hasUser) {
             return res.json({
@@ -59,6 +65,19 @@ const register = async (req, res) => {
 const verifyUser = async (req, res, next,) => {
     try {
         let { username, password } = req.body;
+        if (!username) {
+            return res.json({
+                success: false,
+                message: `username is required`
+            });
+        }
+        if (!password) {
+            return res.json({
+                success: false,
+                message: `password is required`
+            });
+        }
+
         username = username && username.trim();
         password = password && password.trim();
         const user = await User.findOne({where: {username: username}, raw: true});
@@ -181,9 +200,7 @@ const addTask = async (req, res) => {
         if (!description) {
             return res.json({
                 success: false,
-                message: {
-                    error: `description is required`
-                }
+                message: 'description is required'
             });
         }
 
@@ -202,15 +219,13 @@ const addTask = async (req, res) => {
                     [Sequelize.Op.between]: [start.toISOString(), end.toISOString()],
                 }
             }, raw: true
-        });
+        }) ?? 0;
 
         if (taskCount >= maxToDo) {
             console.log(`At addTask(): Can not add a task for user`);
             return res.json({
                 success: false,
-                message: {
-                    error: `The user is limited by ${maxToDo} tasks a day`
-                }
+                message: `The user is limited by ${maxToDo} tasks a day`
             });
         }
 
@@ -274,7 +289,7 @@ const validJWT = (req, res, next) => {
 
         return res.json({
             success: false,
-            message: { error: `The token hasn't found in request headers`}
+            message: `The token hasn't found in request headers`
         });
     }
 
@@ -287,7 +302,7 @@ const validJWT = (req, res, next) => {
 
             return res.json({
                 success: false,
-                message: { error: 'Bearer is not in header' },
+                message: 'Bearer is not in header',
             });
         }
 
@@ -310,7 +325,7 @@ const validJWT = (req, res, next) => {
 
         return res.json({
             success: false,
-            message: { error: 'Token is invalid' },
+            message: error.message ?? 'Token is invalid',
         });
     }
 }

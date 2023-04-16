@@ -3,9 +3,9 @@
 @hostname = http://localhost:8080
 @contentType = application/json
 
-@username = a4@gmail.com
+@username = a@gmail.com
 @password = Thien@123
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm1heFRvZG8iOjMsImlhdCI6MTY4MTQ4OTM3OSwiZXhwIjoxNjgxNDkyOTc5fQ.HT-OgnkMhTWmRL3u4PLv3uKZp3ct3--I5lMci8A-bVY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm1heFRvZG8iOjMsImlhdCI6MTY4MTYzMjIwNywiZXhwIjoxNjgxNjM1ODA3fQ.GXlAbT806E54Ssp4lnz928XCjhD6Yes1pyBZsRLCs4k
 
 ### Get user task
 GET  {{hostname}}/api/{{version}}/user/task/1
@@ -18,7 +18,7 @@ Content-Type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-    "userId": 8
+    "userId": 1
 }
 
 ### Add Task

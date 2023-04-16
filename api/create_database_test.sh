@@ -5,7 +5,6 @@ echo "Creating database todos_test"
 
 docker exec -it MySQL mysql -uroot -proot -e "
     DROP DATABASE IF EXISTS $DB;
-    DROP DATABASE IF EXISTS todos;
     CREATE DATABASE $DB CHARACTER SET utf8 COLLATE utf8_general_ci;
     USE $DB;
     CREATE TABLE IF NOT EXISTS users (
